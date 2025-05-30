@@ -1,0 +1,7 @@
+name: 'AI EEAT'
+type: module
+description: "Evaluate entity content according to Google's E-E-A-T recommendations"
+package: AI
+core_version_requirement: ^10 || ^11
+dependencies:
+  - ai:ai
