@@ -1,4 +1,4 @@
 services:
   ai_eeat.service:
     class: Drupal\ai_eeat\AiEeatService
-    arguments: ['@ai_helper.chat']
+    arguments: ['@ai_helper.chat', '@config.factory']

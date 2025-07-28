@@ -1,0 +1,7 @@
+ai_eeat.settings:
+  path: '/admin/config/ai/ai_eeat'
+  defaults:
+    _title: 'AI EEAT Settings'
+    _form: 'Drupal\ai_eeat\Form\SettingsForm'
+  requirements:
+    _permission: 'administer site configuration'

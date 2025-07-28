@@ -5,3 +5,12 @@ field.value.ai_eeat_evaluation:
     value:
       type: label
       label: Value
+
+# Schema for the configuration files of the AI EEAT module.
+ai_eeat.settings:
+  type: config_object
+  label: 'AI EEAT settings'
+  mapping:
+    prompt:
+      type: string
+      label: 'The prompt to use for the AI'

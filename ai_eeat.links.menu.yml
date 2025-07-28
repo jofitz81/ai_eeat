@@ -1,0 +1,6 @@
+ai_eeat.settings:
+  title: AI EEAT Settings
+  description: Configure the AI EEAT settings
+  parent: ai.admin_settings
+  route_name: ai_eeat.settings
+  weight: 10
