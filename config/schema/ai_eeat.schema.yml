@@ -6,6 +6,14 @@ field.value.ai_eeat_evaluation:
       type: label
       label: Value
 
+field.widget.settings.ai_eeat_evaluation_widget:
+  type: mapping
+  label: EEAT evaluation widget settings
+  mapping:
+    target_field:
+      type: string
+      label: Target field
+
 # Schema for the configuration files of the AI EEAT module.
 ai_eeat.settings:
   type: config_object

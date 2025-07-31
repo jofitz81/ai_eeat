@@ -55,6 +55,37 @@ final class EvaluationWidget extends WidgetBase implements ContainerFactoryPlugi
   /**
    * {@inheritdoc}
    */
+  public static function defaultSettings(): array {
+    $setting = ['target_field' => 'body'];
+    return $setting + parent::defaultSettings();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function settingsForm(array $form, FormStateInterface $form_state): array {
+    // @todo Make this a drop-down of text fields on this entity.
+    $element['target_field'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Target field'),
+      '#description' => $this->t('The text field containing the main content of this entity'),
+      '#default_value' => $this->getSetting('target_field'),
+    ];
+    return $element;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function settingsSummary(): array {
+    return [
+      $this->t('Target field: @target_field', ['@target_field' => $this->getSetting('target_field')]),
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state): array {
     $element['eeat_evaluation'] = [
       '#type' => 'details',
