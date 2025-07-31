@@ -28,26 +28,6 @@ final class EeatEvaluationItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultFieldSettings(): array {
-    $settings = ['bar' => ''];
-    return $settings + parent::defaultFieldSettings();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function fieldSettingsForm(array $form, FormStateInterface $form_state): array {
-    $element['bar'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Bar'),
-      '#default_value' => $this->getSetting('bar'),
-    ];
-    return $element;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition): array {
     $properties['value'] = DataDefinition::create('string')
       ->setLabel(t('Text value'))
