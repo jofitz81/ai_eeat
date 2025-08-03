@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\ai_eeat\Plugin\Field\FieldType;
 
-use Drupal\Component\Utility\Random;
 use Drupal\Core\Field\Attribute\FieldType;
-use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -48,15 +46,6 @@ final class EeatEvaluationItem extends FieldItemBase {
         ],
       ],
     ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function generateSampleValue(FieldDefinitionInterface $field_definition): array {
-    $random = new Random();
-    $values['value'] = $random->word(mt_rand(1, 50));
-    return $values;
   }
 
 }
