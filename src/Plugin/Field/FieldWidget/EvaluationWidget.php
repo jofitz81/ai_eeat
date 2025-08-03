@@ -87,6 +87,9 @@ final class EvaluationWidget extends WidgetBase implements ContainerFactoryPlugi
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state): array {
+    $value = $items[$delta]->value ?? '';
+    $is_assessed = !empty($value);
+
     $element['eeat_evaluation'] = [
       '#type' => 'details',
       '#title' => $this->t('E-E-A-T Evaluation'),
@@ -95,9 +98,16 @@ final class EvaluationWidget extends WidgetBase implements ContainerFactoryPlugi
       '#suffix' => '</div>',
     ];
 
+    $element['eeat_evaluation']['display'] = [
+      '#markup' => $value,
+      '#access' => $is_assessed,
+      '#prefix' => '<div>',
+      '#suffix' => '</div>',
+    ];
+
     $element['eeat_evaluation']['assess_button'] = [
       '#type' => 'button',
-      '#value' => $this->t('Assess'),
+      '#value' => !$is_assessed ? $this->t('Assess') : $this->t('Re-assess'),
       '#ajax' => [
         'callback' => [$this, 'ajaxAssessButton'],
         'event' => 'click',
@@ -106,8 +116,8 @@ final class EvaluationWidget extends WidgetBase implements ContainerFactoryPlugi
     ];
 
     $element['eeat_evaluation']['value'] = [
-      '#type' => 'textfield',
-      '#default_value' => $items[$delta]->value ?? NULL,
+      '#type' => 'hidden',
+      '#default_value' => $value,
     ];
 
     return $element;
@@ -118,7 +128,10 @@ final class EvaluationWidget extends WidgetBase implements ContainerFactoryPlugi
     $evaluation = $this->aiEeatService->evaluate($body_text);
     $field_name = $this->fieldDefinition->getName();
     $element = &$form[$field_name]['widget'][0]['eeat_evaluation'];
+    $element['display']['#markup'] = $evaluation;
+    $element['display']['#access'] = TRUE;
     $element['value']['#value'] = $evaluation;
+    $element['assess_button']['#value'] = $this->t('Re-assess');
     return $element;
   }
 
