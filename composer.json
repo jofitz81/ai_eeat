@@ -12,6 +12,7 @@
     ],
     "require": {
         "drupal/core": "^10 || ^11",
+        "jofitz/ai_helper": "^1.0",
         "league/commonmark": "^2.4"
     }
 }
