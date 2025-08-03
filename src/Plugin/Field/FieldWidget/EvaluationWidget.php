@@ -13,6 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use League\CommonMark\CommonMarkConverter;
+use League\CommonMark\Output\RenderedContentInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -99,13 +100,8 @@ final class EvaluationWidget extends WidgetBase implements ContainerFactoryPlugi
       '#suffix' => '</div>',
     ];
 
-    $display_value = '';
-    if ($is_assessed) {
-      $markdown_converter = new CommonMarkConverter();
-      $display_value = $markdown_converter->convert($value);
-    }
     $element['eeat_evaluation']['display'] = [
-      '#markup' => $display_value,
+      '#markup' => $is_assessed ? $this->parseEvaluation($value) : '',
       '#access' => $is_assessed,
       '#prefix' => '<div>',
       '#suffix' => '</div>',
@@ -134,9 +130,7 @@ final class EvaluationWidget extends WidgetBase implements ContainerFactoryPlugi
     $evaluation = $this->aiEeatService->evaluate($body_text);
     $field_name = $this->fieldDefinition->getName();
     $element = &$form[$field_name]['widget'][0]['eeat_evaluation'];
-    $markdown_converter = new CommonMarkConverter();
-    $evaluation_parsed = $markdown_converter->convert($evaluation);
-    $element['display']['#markup'] = $evaluation_parsed;
+    $element['display']['#markup'] = $this->parseEvaluation($evaluation);
     $element['display']['#access'] = TRUE;
     $element['value']['#value'] = $evaluation;
     $element['assess_button']['#value'] = $this->t('Re-assess');
@@ -148,6 +142,10 @@ final class EvaluationWidget extends WidgetBase implements ContainerFactoryPlugi
       $value['value'] = $value['eeat_evaluation']['value'];
     }
     return $values;
+  }
+
+  protected function parseEvaluation(string $value): RenderedContentInterface {
+    return (new CommonMarkConverter())->convert($value);
   }
 
 }
