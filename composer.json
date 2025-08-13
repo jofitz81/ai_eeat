@@ -10,6 +10,12 @@
             "homepage": "https://www.drupal.org/u/jofitz"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:/jofitz81/ai_helper.git"
+        }
+    ],
     "require": {
         "drupal/core": "^10 || ^11",
         "jofitz/ai_helper": "^1.0",
